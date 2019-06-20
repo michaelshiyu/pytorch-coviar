@@ -1,5 +1,6 @@
 """Run training."""
 
+import sys
 import shutil
 import time
 import numpy as np
@@ -130,15 +131,18 @@ def train(train_loader, model, criterion, optimizer, epoch, cur_lr):
     end = time.time()
 
     for i, (input, target) in enumerate(train_loader):
-
+        # print(input.size(), target)
         data_time.update(time.time() - end)
 
-        target = target.cuda(async=True)
+        # FIXME target = target.cuda(async=True)
+        target = target.cuda()
         input_var = torch.autograd.Variable(input)
         target_var = torch.autograd.Variable(target)
 
         output = model(input_var)
+        # print(output.size())
         output = output.view((-1, args.num_segments) + output.size()[1:])
+        # print(output.size())
         output = torch.mean(output, dim=1)
 
         loss = criterion(output, target_var)
@@ -181,7 +185,8 @@ def validate(val_loader, model, criterion):
 
     end = time.time()
     for i, (input, target) in enumerate(val_loader):
-        target = target.cuda(async=True)
+        # FIXME target = target.cuda(async=True)
+        target = target.cuda()
         input_var = torch.autograd.Variable(input, volatile=True)
         target_var = torch.autograd.Variable(target, volatile=True)
 

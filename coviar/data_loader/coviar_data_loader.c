@@ -583,9 +583,9 @@ static PyMethodDef CoviarMethods[] = {
 };
 
 
-static struct PyModuleDef coviarmodule = {
+static struct PyModuleDef coviar_loadermodule = {
     PyModuleDef_HEAD_INIT,
-    "coviar",   /* name of module */
+    "coviar_loader",   /* name of module */
     NULL,       /* module documentation, may be NULL */
     -1,         /* size of per-interpreter state of the module,
                  or -1 if the module keeps state in global variables. */
@@ -593,18 +593,18 @@ static struct PyModuleDef coviarmodule = {
 };
 
 
-PyMODINIT_FUNC PyInit_coviar(void)
+PyMODINIT_FUNC PyInit_coviar_loader(void)
 {
     PyObject *m;
 
-    m = PyModule_Create(&coviarmodule);
+    m = PyModule_Create(&coviar_loadermodule);
     if (m == NULL)
         return NULL;
 
     /* IMPORTANT: this must be called */
     import_array();
 
-    CoviarError = PyErr_NewException("coviar.error", NULL, NULL);
+    CoviarError = PyErr_NewException("coviar_loader.error", NULL, NULL);
     Py_INCREF(CoviarError);
     PyModule_AddObject(m, "error", CoviarError);
     return m;
@@ -622,7 +622,7 @@ int main(int argc, char *argv[])
     }
 
     /* Add a built-in module, before Py_Initialize */
-    PyImport_AppendInittab("coviar", PyInit_coviar);
+    PyImport_AppendInittab("coviar_loader", PyInit_coviar_loader);
 
     /* Pass argv[0] to the Python interpreter */
     Py_SetProgramName(program);

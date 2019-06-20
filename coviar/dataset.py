@@ -4,6 +4,7 @@ and return compressed representations (I-frames, motion vectors,
 or residuals) for training or testing.
 """
 
+import sys
 import os
 import os.path
 import random
@@ -120,7 +121,6 @@ class CoviarDataSet(data.Dataset):
         else:
             representation_idx = 0
 
-
         if self._is_train:
             video_path, label, num_frames = random.choice(self._video_list)
         else:
@@ -169,7 +169,8 @@ class CoviarDataSet(data.Dataset):
             input = (input - 0.5) / self._input_std
         elif self._representation == 'mv':
             input = (input - 0.5)
-
+        
+        # print(input.size(), label)
         return input, label
 
     def __len__(self):
