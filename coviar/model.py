@@ -1,8 +1,8 @@
 """Model definition."""
 
 from torch import nn
-from transforms import GroupMultiScaleCrop
-from transforms import GroupRandomHorizontalFlip
+from coviar.transforms import GroupMultiScaleCrop
+from coviar.transforms import GroupRandomHorizontalFlip
 import torchvision
 
 class Flatten(nn.Module):

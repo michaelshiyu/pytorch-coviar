@@ -10,11 +10,11 @@ import torch.backends.cudnn as cudnn
 import torch.nn.parallel
 import torchvision
 
-from dataset import CoviarDataSet
-from model import Model
-from train_options import parser
-from transforms import GroupCenterCrop
-from transforms import GroupScale
+from coviar.dataset import CoviarDataSet
+from coviar.model import Model
+from coviar.train_options import parser
+from coviar.transforms import GroupCenterCrop
+from coviar.transforms import GroupScale
 
 SAVE_FREQ = 40
 PRINT_FREQ = 20
